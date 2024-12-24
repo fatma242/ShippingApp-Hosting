@@ -10,6 +10,9 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Fix permission issues for the Angular cache and other directories
+RUN mkdir -p /app/.angular/cache && chmod -R 777 /app
+
 # Install the Angular CLI globally
 RUN npm install -g @angular/cli
 
