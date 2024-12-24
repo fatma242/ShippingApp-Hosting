@@ -13,6 +13,9 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
+# Clear Angular cache to avoid potential issues
+RUN rm -rf /app/.angular/cache
+
 # Fix permission issues for the Angular cache
 RUN mkdir -p /app/.angular/cache && chmod -R 777 /app/.angular
 
