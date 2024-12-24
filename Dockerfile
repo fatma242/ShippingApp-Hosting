@@ -16,8 +16,14 @@ RUN npm install -g @angular/cli
 # Copy the rest of the application code
 COPY . .
 
+# Set permissions for OpenShift's restricted user
+RUN chmod -R 775 /app && chown -R 1001:0 /app
+
 # Expose port 4200 for the web server
 EXPOSE 4200
+
+# Use a non-root user for running the app
+USER 1001
 
 # Run the Angular app using 'ng serve'
 CMD ["ng", "serve", "--host", "0.0.0.0"]
