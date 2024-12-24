@@ -3,20 +3,19 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: .  # Path to your frontend Dockerfile
-      dockerfile: Dockerfile  # Ensure the correct path
+      context: .
+      dockerfile: Dockerfile  # Your frontend Dockerfile
     ports:
       - "4200:4200"
     depends_on:
       - backend
     networks:
       - app-network
-    user: "appuser"  # Ensure it runs as non-root user
 
   backend:
     build:
-      context: ./backend  # Path to your backend Dockerfile
-      dockerfile: Dockerfile  # Ensure the correct path
+      context: ./backend  # Path to your backend code and Dockerfile
+      dockerfile: Dockerfile  # Your backend Dockerfile
     ports:
       - "5000:5000"
     depends_on:
@@ -29,12 +28,11 @@ services:
       - DB_NAME=app_base
     networks:
       - app-network
-    user: "appuser"  # Ensure it runs as non-root user
 
   db-container:
     build:
       context: ./backend/config  # Path to your database Dockerfile and initialization scripts
-      dockerfile: Dockerfile  # Ensure the correct path
+      dockerfile: Dockerfile  # Your database Dockerfile
     ports:
       - "5432:5432"
     volumes:
