@@ -1,9 +1,6 @@
 # Use a lightweight Node.js base image for building the Angular app
 FROM node:18-alpine AS build
 
-# Create and set a non-root user for better security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-
 # Set the working directory
 WORKDIR /app
 
@@ -21,9 +18,6 @@ RUN mkdir -p /app/.angular/cache && chmod -R 777 /app/.angular
 
 # Install the Angular CLI globally
 RUN npm install -g @angular/cli
-
-# Switch to the non-root user
-USER appuser
 
 # Copy the rest of the application code
 COPY . .
