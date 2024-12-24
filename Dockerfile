@@ -13,14 +13,11 @@ RUN npm install
 # Install the Angular CLI globally
 RUN npm install -g @angular/cli
 
-# Disable Angular cache during build
-RUN ng config -g cli.cache false
-
 # Copy the rest of the application code
 COPY . .
 
 # Expose port 4200 for the web server
 EXPOSE 4200
 
-# Run the Angular app using 'ng serve'
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+# Disable Angular cache during build and run the Angular app using 'ng serve'
+CMD ["ng", "serve", "--host", "0.0.0.0", "--disable-host-check"]
