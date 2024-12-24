@@ -1,37 +1,26 @@
-# Use Node.js base image
-FROM node:18-alpine
+# Use a lightweight Node.js base image for building the Angular app
+FROM node:18-alpine AS build
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Add non-root user
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-
-# Set ownership and permissions
-RUN mkdir -p /app/.angular/cache && \
-    chown -R appuser:appgroup /app && \
-    chmod -R 777 /app
-
-# Copy package files
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Install Angular CLI
+# Install the Angular CLI globally
 RUN npm install -g @angular/cli
 
-# Copy rest of the application
+# Disable Angular cache during build
+RUN ng config -g cli.cache false
+
+# Copy the rest of the application code
 COPY . .
 
-# Set environment variable for Angular cache
-ENV NG_CACHE=/tmp/.angular/cache
-
-# Switch to non-root user
-USER appuser
-
-# Expose port
+# Expose port 4200 for the web server
 EXPOSE 4200
 
-# Start the application
-CMD ["ng", "serve", "--host", "0.0.0.0", "--disable-host-check"]
+# Run the Angular app using 'ng serve'
+CMD ["ng", "serve", "--host", "0.0.0.0"]
