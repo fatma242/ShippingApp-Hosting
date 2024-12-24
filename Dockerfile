@@ -13,19 +13,8 @@ RUN npm install
 # Install the Angular CLI globally
 RUN npm install -g @angular/cli
 
-# Create the Angular cache directory and set permissions
-RUN mkdir -p /app/.angular/cache && \
-    chown -R node:node /app/.angular/cache && \
-    chmod -R 777 /app/.angular/cache
-
-# Set environment variable to redirect Angular cache
-ENV NG_CACHE=/app/.angular/cache
-
-# Switch to non-root user
-USER node
-
 # Copy the rest of the application code
-COPY --chown=node:node . .
+COPY . .
 
 # Expose port 4200 for the web server
 EXPOSE 4200
