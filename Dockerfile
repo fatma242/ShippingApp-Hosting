@@ -16,7 +16,7 @@ RUN npm install
 # Clear Angular cache to avoid potential issues
 RUN rm -rf /app/.angular/cache
 
-# Fix permission issues for the Angular cache
+# Create and fix permissions for the Angular cache
 RUN mkdir -p /app/.angular/cache && chmod -R 777 /app/.angular
 
 # Install the Angular CLI globally
@@ -31,5 +31,5 @@ COPY . .
 # Expose port 4200 for the Angular app's web server
 EXPOSE 4200
 
-# Run the Angular app using 'ng serve'
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+# Fix permissions at runtime
+CMD ["sh", "-c", "chmod -R 777 /app/.angular && ng serve --host 0.0.0.0"]
