@@ -20,7 +20,7 @@ export class ManageOrdersComponent implements OnInit {
   orders: any[] = [];
   loading: boolean = false;
 
-  private ordersApiUrl = 'http://localhost:5000/api/orders'; 
+  private ordersApiUrl = '/api/orders'; 
 
   constructor(private http: HttpClient, private router: Router) {}
   ngOnInit(): void {
@@ -60,7 +60,7 @@ export class ManageOrdersComponent implements OnInit {
       // Include the token in the headers
       const headers = { Authorization: `Bearer ${token}` };
   
-      this.http.put(`${this.ordersApiUrl}/newStatus/${orderId}`, { status }, { headers })
+      this.http.put(`${environment.apiUrl}/${this.ordersApiUrl}/newStatus/${orderId}`, { status }, { headers })
         .pipe(
           catchError((error) => {
             console.error('Error updating order status:', error);
