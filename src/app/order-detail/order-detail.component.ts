@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http'; // Import HttpClientModule here
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 export interface Order {
   courier_id: number | null;
@@ -62,7 +63,7 @@ export class OrderDetailComponent implements OnInit {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
     console.log('Fetching details for order:', orderId);
 
-    this.http.get<Order>(`http://localhost:5000/api/orders/${orderId}`, { headers }).subscribe(
+    this.http.get<Order>(`${environment.apiUrl}/api/orders/${orderId}`, { headers }).subscribe(
       (data) => {
         this.order = data;
         this.loading = false;
@@ -89,7 +90,7 @@ export class OrderDetailComponent implements OnInit {
   
       console.log('Cancelling order:', this.order.order_id);
   
-      this.http.put(`http://localhost:5000/api/orders/newStatus/${this.order.order_id}`, body, { headers }).subscribe(
+      this.http.put(`${environment.apiUrl}/api/orders/newStatus/${this.order.order_id}`, body, { headers }).subscribe(
         () => {
           alert('Order cancelled successfully!');
           this.order = null;

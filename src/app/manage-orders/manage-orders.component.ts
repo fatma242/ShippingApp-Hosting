@@ -4,6 +4,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http'; // Import H
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-manage-orders',

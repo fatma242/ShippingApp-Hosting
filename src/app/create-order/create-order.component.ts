@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';  // Import Router service
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-create-order',
@@ -35,7 +36,7 @@ export class CreateOrderComponent {
       // Set the Authorization header
       const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
   
-      this.http.post('http://localhost:5000/api/orders', this.orderObj, { headers }).subscribe(
+      this.http.post(`${environment.apiUrl}/api/orders`, this.orderObj, { headers }).subscribe(
         (res: any) => {
           alert('Order created successfully');
         },
