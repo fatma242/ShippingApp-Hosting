@@ -1,6 +1,9 @@
 # Use a lightweight Node.js base image
 FROM node:18-alpine
 
+# Install PostgreSQL client
+RUN apk add --no-cache postgresql-client
+
 # Set the working directory inside the container
 WORKDIR /app
 
