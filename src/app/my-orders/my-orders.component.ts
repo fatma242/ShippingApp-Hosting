@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 // Define the expected structure of each order item
 export interface Order {
@@ -57,7 +58,7 @@ export class MyOrdersComponent implements OnInit {
   // Method to get orders from the API
   getOrders(user_id: number, authToken: string): Observable<Order[]> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
-    return this.http.get<Order[]>(`http://localhost:5000/api/orders/user/${user_id}`, { headers });
+    return this.http.get<Order[]>(`${environment.apiUrl}/api/orders/user/${user_id}`, { headers });
   }
 
   // Method to handle navigation to order details
