@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http'; // Import HttpHeaders
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-assigned-orders-courier',
@@ -34,7 +35,7 @@ export class AssignedOrdersCourierComponent implements OnInit {
   // Fetch orders assigned to a specific courier
   fetchAssignedOrders(): void {
     this.http
-      .get<any[]>('http://localhost:5000/api/orders', {  // Use the correct backend URL
+      .get<any[]>(`${environment.apiUrl}/api/orders`, {  // Use the correct backend URL
         headers: this.getAuthHeaders(),  // Pass headers here
       })
       .subscribe(
@@ -54,7 +55,7 @@ export class AssignedOrdersCourierComponent implements OnInit {
   // Fetch available couriers for selection (if required)
   fetchCouriers(): void {
     this.http
-      .get<any[]>('http://localhost:5000/api/users/couriers', {
+      .get<any[]>(`${environment.apiUrl}/api/users/couriers`, {
         headers: this.getAuthHeaders(),  // Add token in headers
       })
       .subscribe(
@@ -78,7 +79,7 @@ export class AssignedOrdersCourierComponent implements OnInit {
   
       this.http
         .post(
-          `http://localhost:5000/api/orders/assign`,
+          `${environment.apiUrl}/api/orders/assign`,
           {
             orderId: orderid, // Directly use the passed orderid
             courierId: newCourier,
