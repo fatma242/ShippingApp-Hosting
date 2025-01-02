@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-assigned-orders',
@@ -42,7 +41,7 @@ export class AssignedOrdersComponent implements OnInit {
     
     console.log('Retrieved courierId from localStorage:', courierId);
 
-    this.http.get<Order[]>(`${environment.apiUrl}/api/courier/orders/${courierId}`, {
+    this.http.get<Order[]>(`http://localhost:5000/api/courier/orders/${courierId}`, {
       headers: this.getAuthHeaders(),
     }).subscribe(
       (data) => {

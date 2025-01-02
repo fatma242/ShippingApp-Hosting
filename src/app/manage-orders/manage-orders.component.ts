@@ -4,7 +4,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http'; // Import H
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-manage-orders',
@@ -20,7 +19,7 @@ export class ManageOrdersComponent implements OnInit {
   orders: any[] = [];
   loading: boolean = false;
 
-  private ordersApiUrl = '/api/orders'; 
+  private ordersApiUrl = 'http://localhost:5000/api/orders'; 
 
   constructor(private http: HttpClient, private router: Router) {}
   ngOnInit(): void {
@@ -60,7 +59,7 @@ export class ManageOrdersComponent implements OnInit {
       // Include the token in the headers
       const headers = { Authorization: `Bearer ${token}` };
   
-      this.http.put(`${environment.apiUrl}/${this.ordersApiUrl}/newStatus/${orderId}`, { status }, { headers })
+      this.http.put(`${this.ordersApiUrl}/newStatus/${orderId}`, { status }, { headers })
         .pipe(
           catchError((error) => {
             console.error('Error updating order status:', error);

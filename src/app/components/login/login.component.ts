@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http'; // Import HttpClient and HttpClientModule
 import { FormsModule } from '@angular/forms';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +25,7 @@ export class LoginComponent {
       return;
     }
   
-    this.http.post<LoginResponse>(`${environment.apiUrl}/api/users/login`, this.loginObj)
+    this.http.post<LoginResponse>('http://localhost:5000/api/users/login', this.loginObj)
       .subscribe(
         (res) => {
           if (res.token) {
@@ -69,7 +68,7 @@ export class LoginComponent {
 
   onRegister() {
     console.log(this.registerObj);
-    this.http.post<RegisterResponse>(`${environment.apiUrl}/api/users/register`, this.registerObj)
+    this.http.post<RegisterResponse>('http://localhost:5000/api/users/register', this.registerObj)
       .subscribe(
         (res) => {
           if (res.id) {

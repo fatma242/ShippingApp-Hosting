@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-update-order-status',
@@ -49,7 +48,7 @@ export class UpdateOrderStatusComponent implements OnInit {
       Authorization: `Bearer ${authToken}`,
     });
   
-    this.http.get<any[]>(`${environment.apiUrl}/api/courier/orders/${courierId}`, { headers })
+    this.http.get<any[]>(`http://localhost:5000/api/courier/orders/${courierId}`, { headers })
       .subscribe({
         next: (data) => {
           console.log('Fetched orders:', data); // Debugging log
@@ -73,7 +72,7 @@ export class UpdateOrderStatusComponent implements OnInit {
   updateStatus(orderId: number, newStatus: string): void {
     const order = this.orders.find(o => o.order_id === orderId);
     if (order) {
-      this.http.put(`${environment.apiUrl}/api/courier/orders/${orderId}/status`, 
+      this.http.put(`http://localhost:5000/api/courier/orders/${orderId}/status`, 
         { status: newStatus },
         { headers: this.getAuthHeaders() }
       ).subscribe(
