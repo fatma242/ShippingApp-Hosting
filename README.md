@@ -1,6 +1,7 @@
 # ShippingApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
+Build a package tracking system similar to Armex or Bosta. This system would facilitate business owners who sell products through platforms like Facebook or Instagram. After receiving an order, the business owner can hand over the package to a delivery courier along with the delivery fee and the customer’s address. The courier then communicates with the customer to arrange the delivery of the package.
 
 ## Development server
 
